@@ -12,10 +12,4 @@ jobs:
         run: docker build -t my-docker-image .
         
       - name: Run Docker container
-        run: |
-          docker run -d --name my-container -v "$(pwd)":/app my-docker-image ls -la /app 
-          
-      - name: Get Docker container output
-        run: |
-          CONTAINER_OUTPUT=$(docker logs my-container)
-          echo "The container output is: $CONTAINER_OUTPUT"
+        run: docker run -d -t -a --name my-container -v "$(pwd)":/app my-docker-image ls -la /app 
