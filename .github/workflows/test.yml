@@ -11,6 +11,10 @@ jobs:
       - name: Build Docker image
         run: docker build -t my-docker-image .
 
+      - name: Wait for container to start
+        run: |
+          while ! docker exec my-container echo "Container is ready"; do sleep 1; done
+
       - name: Run Docker container
         run: |
           docker run -d --name my-container -v "$(pwd)":/app my-docker-image
