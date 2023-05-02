@@ -7,7 +7,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: |
+            /var/lib/docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
       - name: Build Docker image
         run: docker build -t my-docker-image .
 
@@ -15,8 +24,9 @@ jobs:
         run: |
           chmod +x ./.github/scripts/build-rust.sh
           docker run -a stderr -a stdout --name my-container -v "$(pwd)":/app my-docker-image sh -c "/app/.github/scripts/build-rust.sh"
-          
-      - uses: actions/upload-artifact@v3
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
         with:
           name: libs
           path: /app/bin/
