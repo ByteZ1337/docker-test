@@ -20,6 +20,9 @@ jobs:
       - name: Build Docker image
         run: docker build -t my-docker-image .
 
+      - name: Where am I?
+        run: pwd
+
       - name: Build Rust
         run: |
           chmod +x ./.github/scripts/build-rust.sh
@@ -29,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: libs
-          path: /app/bin/
+          path: /github/workspace/bin/
