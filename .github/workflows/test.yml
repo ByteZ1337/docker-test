@@ -10,9 +10,6 @@ jobs:
       
       - name: Build Docker image
         run: docker build -t my-docker-image .
-      
-      - name: Load Docker image
-        run: docker load < my-docker-image.tar
-      
+
       - name: Run command in container
         run: docker run my-docker-image echo "Hello, world!"
