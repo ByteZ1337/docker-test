@@ -12,4 +12,4 @@ jobs:
         run: docker build -t my-docker-image .
         
       - name: Run Docker container
-        run: docker run -a stderr -a stdout --name my-container -v "$(pwd)":/app my-docker-image ls -la /app 
+        run: docker run -a stderr -a stdout --name my-container -v "$(pwd)":/app my-docker-image . .github/scripts/build-rust.sh
