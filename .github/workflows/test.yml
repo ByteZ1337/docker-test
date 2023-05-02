@@ -10,6 +10,8 @@ jobs:
       
       - name: Build Docker image
         run: docker build -t my-docker-image .
-        
-      - name: Run Docker container
-        run: docker run -a stderr -a stdout --name my-container -v "$(pwd)":/app my-docker-image sh -c "/app/.github/scripts/build-rust.sh"
+
+      - name: Build Rust
+        run: |
+          chmod +x ./.github/scripts/build-rust.sh
+          docker run -a stderr -a stdout --name my-container -v "$(pwd)":/app my-docker-image sh -c "/app/.github/scripts/build-rust.sh"
