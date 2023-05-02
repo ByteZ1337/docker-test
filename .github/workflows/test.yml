@@ -11,5 +11,8 @@ jobs:
       - name: Build Docker image
         run: docker build -t my-docker-image .
 
-      - name: Run command in container
-        run: docker run my-docker-image echo "Hello, world!"
+      - name: Run Docker container
+        run: |
+          docker run -d --name my-container -v "$(pwd)":/app my-docker-image
+          sleep 5 # wait for the container to start
+          docker exec my-container ls -la /app # list the files in the mounted volume
