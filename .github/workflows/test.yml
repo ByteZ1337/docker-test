@@ -6,22 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: |
-            /var/lib/docker
-          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
+        uses: actions/checkout@v3
 
       - name: Build Docker image
         run: docker build -t my-docker-image .
-
-      - name: Where am I?
-        run: echo ${{ github.workspace }}
 
       - name: Build Rust
         run: |
