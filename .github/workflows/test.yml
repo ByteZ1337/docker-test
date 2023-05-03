@@ -8,13 +8,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build Docker image
-        run: docker build -t my-docker-image .
+#      - name: Build Docker image
+#        run: docker build -t my-docker-image .
 
       - name: Build Rust
         run: |
           chmod +x ./.github/scripts/build-rust.sh
-          docker run -a stderr -a stdout --name my-container -v "$(pwd)":/app my-docker-image sh -c "/app/.github/scripts/build-rust.sh"
+          sh -c "/app/.github/scripts/build-rust.sh"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
